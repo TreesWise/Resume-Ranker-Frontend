@@ -1,0 +1,314 @@
+.resume-ranker-container {
+  margin-top: 50px;
+  position: relative;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.description {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.w-100{
+  width: 100%;
+}
+
+.description .upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.upload-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.upload-section input {
+  padding: 10px;
+  outline: none;
+  border: 1px solid #cac9dd;
+  border-radius: 6px;
+}
+
+.upload-section input:focus {
+  background-color: #faf9ff;
+  border: 1px solid #3b82f6;
+}
+
+ .upload-btn {
+  padding: 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  gap: 6px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.upload-section .upload-btn svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
+
+.upload-btn{
+  position: relative;
+}
+
+.upload-btn .file-input{
+ position: absolute;
+ width: 0;
+ height: 0;
+ top: 0;
+}
+
+
+h1,
+h3 {
+  margin: 0;     
+}
+
+h1 {
+  color: #3a374e;
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+h3 {
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: #3c3b44;
+}
+
+
+.card {
+  background-color: #fff;
+  border: 1px solid #f7f5f4;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  transition: all;
+}
+
+.preview h3{
+  color: #3a374e;
+  font-size: 18px;
+}
+  
+
+.preview h3{
+  margin-bottom: 12px;
+}
+
+label {
+  font-size: 14px;
+  color: #777685;
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.input-section label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.input-section input {
+  padding: 10px;
+  outline: none;
+  border: 1px solid #cac9dd;
+  border-radius: 6px;
+}
+
+.input-section input:focus {
+  background-color: #faf9ff;
+  border: 1px solid #3b82f6;
+}
+
+.input-section textarea {
+  min-height: 50px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #cac9dd;
+  resize: vertical;
+}
+
+.input-section textarea:focus {
+  background-color: #faf9ff;
+  border: 1px solid #3b82f6;
+}
+
+.input-section input[type="file"] {
+  margin-top: 5px;
+}
+
+.input-section .upload {
+  padding: 10px 20px;
+  font-weight: bold;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.input-section button:hover {
+  background-color: #357abd;
+}
+
+.file-preview-container{
+  display: flex;
+  flex-wrap: wrap;
+  gap:6px;
+}
+
+.file{
+  display: flex;
+  gap:4px;  
+  background-color: #a2c4fa;
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.file .image{
+  display: flex;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.file .image svg{
+   width: 16px;
+   height: 16px;
+   flex-shrink: 0;
+   cursor: pointer;
+}
+
+.upload-btn svg{
+  width: 16px;
+  height: 16px;
+}
+
+.table-section h3 {
+  margin-bottom: 10px;
+}
+
+.table-section {
+  margin-top: 20px;
+
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+thead {
+  background-color: #f0f0f0;
+  color: #1a1a1a;
+}
+
+th {
+  padding: 14px 18px;
+  text-align: left;
+  border: 1px solid #ddd;
+  position: relative;
+  cursor: pointer;
+}
+
+th .sort-icon {
+  font-size: 12px;
+  margin-left: 6px;
+  color: #888;
+}
+
+td {
+  padding: 14px 18px;
+  border: 1px solid #eee;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+tbody tr:hover {
+  background-color: #f1f5ff;
+}
+
+.display-container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .display-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.resume-detail {}
+
+
+.loading-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-spinner{
+  border: 8px solid rgba(0, 0, 0, 0.09);
+  border-left-color: #3b82f6;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-overlay p{
+  margin-top: 16px;
+  font-size: 16px;
+  color: #3a374e;
+}
+
+@keyframes spin{
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
