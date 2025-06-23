@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles.css';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+    //write code for active link highlighting
+    const [activeLink, setActiveLink] = useState('/');
+    const handleLinkClick = (link) => {
+        setActiveLink(link);
+    };
+
     return (
         <nav className='navbar'>
             <div className='navbar-container'>
@@ -12,9 +18,12 @@ const Navbar = () => {
                 <div className='title'>
                     <span>Resume Ranker</span>
                 </div>
-                <Link to={'/search'} className='login-button'>Search</Link>
+                <div className='nav-links'>
+                    <Link to={'/'} className={`link-btn ${activeLink === "home" ? 'active' : ''}`} onClick={() => handleLinkClick('home')}>Home</Link>
+                    <Link to={'/search'} className={`link-btn ${activeLink === "search" ? 'active' : ''}`} onClick={() => handleLinkClick('search')}>Search</Link>
+                </div>
                 <div>
-                    <button className='login-button'>Login</button>
+                    <button className='button'>Login</button>
                 </div>
             </div>
         </nav>

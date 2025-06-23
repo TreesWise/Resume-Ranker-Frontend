@@ -304,6 +304,22 @@ tbody tr:hover {
   color: #3a374e;
 }
 
+.sort-option{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.sort-option .sort-icon{
+  width: 16px;
+  height: 16px;
+}
+
+.sort-option .sort-icon path{
+  fill: #000;
+}
+
 @keyframes spin{
   0% {
     transform: rotate(0deg);
@@ -311,4 +327,69 @@ tbody tr:hover {
   100% {
     transform: rotate(360deg);
   }
+}
+
+
+.checkbox-group{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.custom-checkbox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-left: 28px;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+  color: #333;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.custom-checkbox .checkmark {
+  position: absolute;
+  left: 0;
+  top: -2px;
+  height: 18px;
+  width: 18px;
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
+  border-radius: 24px;
+  transition: 0.2s;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.custom-checkbox .checkmark::after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark::after {
+  display: block;
+}
+
+.custom-checkbox .checkmark::after {
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
