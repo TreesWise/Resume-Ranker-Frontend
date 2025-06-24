@@ -1,0 +1,188 @@
+.resume-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+}
+
+.evaluation-section {
+  display: flex;
+  gap: 20px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.card-header p {
+  margin: 4px 0 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* Circular Progress */
+.progress {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}
+
+.progress .number {
+  position: absolute;
+  top: 50%;
+  font-size: 16px;
+  left: 50%;
+  color: #333;
+  font-weight: 600;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.circular-progress {
+  transform: rotate(-90deg);
+}
+
+.circular-progress .bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 8;
+}
+
+.circular-progress .progress {
+  fill: none;
+  stroke: #4caf50;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease;
+}
+
+
+/* Evaluation Section */
+.evaluation-section {
+  margin-top: 10px;
+
+}
+
+.criteria {
+  background-color: #f1f7ff;
+  padding: 12px;
+  border-radius: 6px;
+  width: 100%;
+  border: 1px solid #dbe0ff;
+
+}
+
+.criteria-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.criteria-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.criteria-bar {
+  width: 100px;
+  height: 50px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  background-color: #eee;
+  overflow: hidden;
+  position: relative;
+}
+
+.criteria-fill {
+  height: 100%;
+  background-color: #4caf50;
+  /* default green */
+  transition: width 0.5s ease;
+}
+
+/* Optional dynamic color classes */
+.criteria-fill.low {
+  background-color: #f44336;
+  /* red */
+}
+
+.criteria-fill.medium {
+  background-color: #ff9800;
+  /* orange */
+}
+
+.criteria-fill.high {
+  background-color: #497ef0;
+  /* green */
+}
+
+.criteria-label {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+.criteria-comment {
+  font-size: 0.85rem;
+  color: #333;
+  margin-top: 6px;
+}
+
+/* Summary */
+.summary {
+  margin-top: 20px;
+  background: #f9f9f9;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+
+.semi-circle-wrapper {
+  position: relative;
+  width: 100%;
+  height: 48px;
+  margin: 0 auto;
+  border-bottom: 1px solid #dbe0ff;
+  text-align: center;
+}
+
+.semi-circle {
+  transform: rotate(0deg);
+  /* Upright */
+}
+
+.semi-circle-text {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: 100%;
+  color: #333;
+}
+
+.semi-circle-text .label {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.semi-circle-text .value {
+  font-size: 16px;
+  font-weight: 600;
+}
