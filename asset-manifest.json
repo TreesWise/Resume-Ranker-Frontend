@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/TreesWise/Resume-Ranker-Frontend.git/static/css/main.7016a79a.css",
-    "main.js": "/TreesWise/Resume-Ranker-Frontend.git/static/js/main.0cde8c09.js",
-    "static/js/453.4eae4160.chunk.js": "/TreesWise/Resume-Ranker-Frontend.git/static/js/453.4eae4160.chunk.js",
-    "index.html": "/TreesWise/Resume-Ranker-Frontend.git/index.html",
-    "static/media/file-icon.svg": "/TreesWise/Resume-Ranker-Frontend.git/static/media/file-icon.809e724f3374bfe36cbbcc9fc9d15c96.svg",
-    "static/media/sort-icon.svg": "/TreesWise/Resume-Ranker-Frontend.git/static/media/sort-icon.834368e947369082f7c77f654c985339.svg",
-    "static/media/upload-icon.svg": "/TreesWise/Resume-Ranker-Frontend.git/static/media/upload-icon.8620ec43d2c0729ca7fb9564af5e30d2.svg",
-    "static/media/close-icon.svg": "/TreesWise/Resume-Ranker-Frontend.git/static/media/close-icon.724e03e792a304606be4e46221ab77b5.svg",
-    "main.7016a79a.css.map": "/TreesWise/Resume-Ranker-Frontend.git/static/css/main.7016a79a.css.map",
-    "main.0cde8c09.js.map": "/TreesWise/Resume-Ranker-Frontend.git/static/js/main.0cde8c09.js.map",
-    "453.4eae4160.chunk.js.map": "/TreesWise/Resume-Ranker-Frontend.git/static/js/453.4eae4160.chunk.js.map"
+    "main.css": "/Resume-Ranker-Frontend/static/css/main.7016a79a.css",
+    "main.js": "/Resume-Ranker-Frontend/static/js/main.2379a40e.js",
+    "static/js/453.4eae4160.chunk.js": "/Resume-Ranker-Frontend/static/js/453.4eae4160.chunk.js",
+    "index.html": "/Resume-Ranker-Frontend/index.html",
+    "static/media/file-icon.svg": "/Resume-Ranker-Frontend/static/media/file-icon.809e724f3374bfe36cbbcc9fc9d15c96.svg",
+    "static/media/sort-icon.svg": "/Resume-Ranker-Frontend/static/media/sort-icon.834368e947369082f7c77f654c985339.svg",
+    "static/media/upload-icon.svg": "/Resume-Ranker-Frontend/static/media/upload-icon.8620ec43d2c0729ca7fb9564af5e30d2.svg",
+    "static/media/close-icon.svg": "/Resume-Ranker-Frontend/static/media/close-icon.724e03e792a304606be4e46221ab77b5.svg",
+    "main.7016a79a.css.map": "/Resume-Ranker-Frontend/static/css/main.7016a79a.css.map",
+    "main.2379a40e.js.map": "/Resume-Ranker-Frontend/static/js/main.2379a40e.js.map",
+    "453.4eae4160.chunk.js.map": "/Resume-Ranker-Frontend/static/js/453.4eae4160.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7016a79a.css",
-    "static/js/main.0cde8c09.js"
+    "static/js/main.2379a40e.js"
   ]
 }
