@@ -1,33 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/styles.css';
-import { getRecords } from '../services/api';
+import { getJobRoles, getRecords } from '../services/api';
 import SortIcon from '../assets/icons/sort-icon.svg';
+import Select from '../components/Select';
 
 const Collection = () => {
 
   const [resumesData, setResumesData] = useState([]);
   const [jobTitle, setJobTitle] = useState("");
-  const [email, setEmail] = useState("");
-  const [searchByJob, setSearchByJob] = useState(true);
+  const [jobRoles, setJobRoles] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const [isAsc, setIsAsc] = useState(false);
 
   const handleSortToggle = () => {
     setIsAsc((prev) => !prev);
   };
 
-  const handleSearchOptionChange = (option) => {
-    setSearchByJob(option === 'job');
-    setJobTitle("");
-    setEmail("");
-  };
+  useEffect(() => {
+    const fetchJobRoles = async () => {
+      setLoading(true);
+      try {
+        const response = await getJobRoles();
+        if (response.status === 200) {
+          const roles = response.data?.job_titles || [];
+          setJobRoles(roles);
+          console.log("Job roles fetched successfully:", roles);
+        } else {
+          console.error("Failed to fetch job roles");
+        }
+      } catch (error) {
+        console.error("Error fetching job roles:", error);
+        toast.error("Error fetching job roles");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchJobRoles();
+  }, []);
 
+
+  const handleSelectJobRole = (value) => {
+    setJobTitle(value);
+  }
 
   const handleSearch = async () => {
     setLoading(true);
     try {
-      const response = await getRecords(email, jobTitle);
+      const response = await getRecords(jobTitle);
       setResumesData(response.data?.ranked_resumes || response.data?.records || []);
       setLoading(false);
     } catch (error) {
@@ -51,37 +70,7 @@ const Collection = () => {
       <div className="table-section">
         <h3>Ranked Resumes</h3>
         <div className='card description'>
-          {searchByJob && <div className='upload-section'>
-            <label>Job Title</label>
-            <input type="text" value={jobTitle} placeholder="Enter Title" onChange={(e) => setJobTitle(e.target.value)} />
-          </div>}
-          {!searchByJob && <div className='upload-section'>
-            <label>Email</label>
-            <input type="email" value={email} placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)} />
-          </div>}
-          <div className="checkbox-group">
-            <label className="custom-checkbox">
-              <input
-                type="radio"
-                name="searchType"
-                checked={searchByJob}
-                onChange={(e) => handleSearchOptionChange('job')}
-              />
-              <span className="checkmark"></span>
-              <span>Search by Job Title</span>
-            </label>
-
-            <label className="custom-checkbox">
-              <input
-                type="radio"
-                name="searchType"
-                checked={!searchByJob}
-                onChange={(e) => handleSearchOptionChange('email')}
-              />
-              <span className="checkmark"></span>
-              <span>Search by Email</span>
-            </label>
-          </div>
+          <Select title={"Select Job Role"} data={jobRoles} selectedValue={jobTitle} onSelectValue={handleSelectJobRole} />
           <button className='' onClick={handleSearch}>
             <span>Search</span>
           </button>
@@ -114,7 +103,7 @@ const Collection = () => {
                   <td>{index + 1}</td>
                   <td>{result.email}</td>
                   <td>{result.job_title}</td>
-                  <td>{result.weighted_score}%</td>
+                  <td>{result.weighted_score.toFixed(1) * 10}%</td>
                   <td>{result.uploaded_by}</td>
                 </tr>
               ))}

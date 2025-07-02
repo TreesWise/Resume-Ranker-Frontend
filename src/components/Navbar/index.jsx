@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './styles.css';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/icons/logo.png'; // Assuming you have a logo image
 
 const Navbar = () => {
     //write code for active link highlighting
@@ -13,7 +14,7 @@ const Navbar = () => {
         <nav className='navbar'>
             <div className='navbar-container'>
                 <div className='logo'>
-                    <span>Logo</span>
+                    <img src={logo} alt='Logo' />
                 </div>
                 <div className='title'>
                     <span>Resume Ranker</span>

@@ -48,7 +48,8 @@ const SemiCircularProgress = ({ value }) => {
 const CircularProgress = ({ value }) => {
     const radius = 34;
     const circumference = 2 * Math.PI * radius;
-    const offset = circumference - (value / 100) * circumference;
+    const updatedValue = value.toFixed(1) * 10;
+    const offset = circumference - (updatedValue / 100) * circumference;
 
     return (
         <div className='progress'>
@@ -61,11 +62,11 @@ const CircularProgress = ({ value }) => {
                     r={radius}
                     strokeDasharray={circumference}
                     strokeDashoffset={offset}
-                    style={{ stroke: getStrokeColor(value) }}
+                    style={{ stroke: getStrokeColor(updatedValue) }}
                 />
 
             </svg>
-            <span className='number'>{value}%</span>
+            <span className='number'>{updatedValue}%</span>
         </div>
     );
 };

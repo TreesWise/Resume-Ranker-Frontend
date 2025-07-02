@@ -51,7 +51,7 @@ export const uploadJD = async (file, title, uploadedBy) => {
 export const rankResumes = async (criteria, jobTitle, name) => {
     try {
         const body = {
-            criteria,
+            criteria_with_weights: criteria,
             uploaded_by: name,
             job_title: jobTitle,
         }
@@ -69,12 +69,23 @@ export const rankResumes = async (criteria, jobTitle, name) => {
 };
 
 //Get Records
-export const getRecords = async (email, jobTitle) => {
+export const getRecords = async (jobTitle) => {
     try {
-        const response = await api.get(`/get-records/?job_title=${encodeURIComponent(jobTitle)}&email=${encodeURIComponent(email)}`);
+        const response = await api.get(`/get-records/?job_title=${encodeURIComponent(jobTitle)}`);
         return response;
     } catch (error) {
         console.error('Error fetching records:', error);
+        throw error;
+    }
+}
+
+//get job roles
+export const getJobRoles = async () => {
+    try {
+        const response = await api.get('/job-titles/');
+        return response;
+    } catch (error) {
+        console.error('Error fetching job roles:', error);
         throw error;
     }
 }
