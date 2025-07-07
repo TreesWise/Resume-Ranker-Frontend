@@ -16,14 +16,12 @@ const Dashboard = () => {
   const [jobTitle, setJobTitle] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [selectedResumes, setSelectedResumes] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
   const [jdModalOpen, setJdModalOpen] = useState(false);
+  const [resumeUploaded, setResumeUploaded] = useState(false);
   const [name, setName] = useState("");
-  const [displayFiles, setdisplayFiles] = useState([]);
   const [criteria, setCriteria] = useState([]);
   const [resumesData, setResumesData] = useState([]);
   const [jobRole, setJobRole] = useState("");
-  const [criteriaView, setCriteriaView] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadMessage, setLoadMessage] = useState("Loading...");
   const [jobRoles, setJobRoles] = useState([]);
@@ -38,38 +36,32 @@ const Dashboard = () => {
     setJobDescription(e.target.files[0]);
   };
 
-  const handleModalOpen = () => {
-    setModalOpen(true);
-  };
 
   const clearSelectedFiles = () => {
     setSelectedResumes([]);
   }
 
-  const handleModalClose = () => {
-    setModalOpen(false);
-    clearSelectedFiles();
+  const fetchJobRoles = async () => {
+    setLoading(true);
+    try {
+      const response = await getJobRoles();
+      if (response.status === 200) {
+        const roles = response.data?.job_titles || [];
+        setJobRoles(roles);
+        console.log("Job roles fetched successfully:", roles);
+      } else {
+        console.error("Failed to fetch job roles");
+      }
+    } catch (error) {
+      console.error("Error fetching job roles:", error);
+      toast.error("Error fetching job roles");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    const fetchJobRoles = async () => {
-      setLoading(true);
-      try {
-        const response = await getJobRoles();
-        if (response.status === 200) {
-          const roles = response.data?.job_titles || [];
-          setJobRoles(roles);
-          console.log("Job roles fetched successfully:", roles);
-        } else {
-          console.error("Failed to fetch job roles");
-        }
-      } catch (error) {
-        console.error("Error fetching job roles:", error);
-        toast.error("Error fetching job roles");
-      } finally {
-        setLoading(false);
-      }
-    };
+
     fetchJobRoles();
   }, []);
 
@@ -79,14 +71,13 @@ const Dashboard = () => {
       toast.error("Please select at least one resume to upload");
       return;
     }
-    setModalOpen(false);
     setLoading(true);
     setLoadMessage("Uploading resumes...");
     try {
       const res = await uploadFolder(selectedResumes, name);
       if (res.status === 200) {
         console.log("Files uploaded successfully");
-        setdisplayFiles(selectedResumes);
+       setResumeUploaded(true);
         toast.success("Resumes uploaded successfully");
       } else {
         console.error("Failed to upload files");
@@ -94,11 +85,11 @@ const Dashboard = () => {
     } catch (error) {
       console.error("Error uploading files:", error);
       toast.error("Error uploading files");
+      setResumeUploaded(false);
     } finally {
       setLoading(false);
     }
-    
-    clearSelectedFiles();
+  
   };
 
   const handleJobDescriptionUpload = async () => {
@@ -107,12 +98,16 @@ const Dashboard = () => {
       return;
     }
     setLoadMessage("Uploading job description...");
+    setJdModalOpen(false);
     setLoading(true);
     try {
       const res = await uploadJD(jobDescription, jobTitle, 'test');
       if (res.status === 200) {
         console.log("Job description uploaded successfully");
         toast.success("Job description uploaded successfully");
+        setJobDescription("");
+        setJobTitle("");
+        fetchJobRoles();
       } else {
         console.error("Failed to upload job description");
       }
@@ -125,12 +120,21 @@ const Dashboard = () => {
   };
 
   const handleRankResumes = async () => {
+    
+    if(!resumeUploaded) {
+      toast.error("Please upload resumes before ranking");
+      return;
+    }
+
+    if(criteria.some(item => item.criteria.trim() === "")) {
+      toast.error("Please fill all criteria fields");
+      return;
+    }
     //trim all critieria values
     const updatedCriteria = criteria.map(item => ({
-      criterion: item.criteria.trim(),
-      weight: Number(item.weight)
+      criterion: item.criteria.trim()
     }))
-   
+
     try {
       setLoadMessage("Ranking resumes...");
       setLoading(true);
@@ -139,8 +143,12 @@ const Dashboard = () => {
         console.log("Resumes ranked successfully");
         setResumesData(res.data?.ranked_resumes);
         toast.success("Resumes ranked successfully");
+        setResumeUploaded(false);
+        setSelectedResumes([]);
+        setCriteria([]);
       } else {
         console.error("Failed to rank resumes");
+        toast.error("Failed to upload resumes");
       }
       console.log("Ranking resumes...");
     } catch (error) {
@@ -150,14 +158,6 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const removeFile = idx => setdisplayFiles(prev => prev.filter((_, i) => i !== idx));
-
-  const handleAdd = () => {
-    setCriteriaView(true)
-    const newItem = { id: Date.now(), criteria: '', weight: '' };
-    setCriteria([...criteria, newItem]);
   };
 
   const handleSelectJobRole = (value) => {
@@ -173,35 +173,13 @@ const Dashboard = () => {
         </div>
       }
       <h1>Resume Ranking Tool</h1>
-      <div className='card header'>
-        <h3>Add Job Description</h3>
-        <button className='upload-btn' onClick={() => setJdModalOpen(true)}>
-          <img src={UploadIcon} alt="Upload Icon" />
-          Upload</button>
-      </div>
       <div className='card'>
         <div className='header'>
-          <h3>Upload Resumes</h3>
-          <button className='upload-btn' onClick={handleModalOpen}>
+          <h3>Add Job Description</h3>
+          <button className='upload-btn' onClick={() => setJdModalOpen(true)}>
             <img src={UploadIcon} alt="Upload Icon" />
-            <span>Add Resumes</span>
-          </button>
+            Upload</button>
         </div>
-        {displayFiles && displayFiles.length > 0 &&
-          <div className='preview'>
-            <div className='file-preview-container'>
-              {displayFiles.map((file, idx) => (
-                <div key={idx} className='file'>
-                  <div className="image">
-                    <img src={FileIcon} alt="File Icon" />
-                    <span className="">{file.name}</span>
-                  </div>
-                  <img src={CloseIcon} onClick={() => removeFile(idx)} />
-                </div>
-              ))}
-            </div>
-          </div>
-        }
       </div>
       <Modal
         modalOpen={jdModalOpen}
@@ -250,52 +228,44 @@ const Dashboard = () => {
                     />
                   </div>}
               </div>
-      
+
               <div className="submit-btn">
                 <button onClick={handleJobDescriptionUpload}>Submit JD</button>
               </div>
-            
+
             </div>
             {error && <p className='error-message'>{error}</p>}
           </div>
         </div>
       </Modal>
-      <Modal
-        modalOpen={modalOpen}
-        onModalClose={handleModalClose}
-      >
-        <div className='card input-section'>
-          <h3>Upload Resumes</h3>
-          <label>Name</label>
-          <input name="description" id=""
-            placeholder="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          >
-          </input>
-          <label htmlFor="file-upload">Resumes (PDF)</label>
-          <FileUpload files={selectedResumes} setFiles={setSelectedResumes} />
-          <button className='upload' onClick={handleResumesUpload}>Upload Resumes</button>
-        </div>
-      </Modal>
       <div className="card">
         <div className='job-section'>
-          <Select title={"Select Job Role"} data={jobRoles} selectedValue={jobRole} onSelectValue={handleSelectJobRole} />
-          <div className="criteria-section">
+          <div className='card'>
+            <Select title={"Select Job Role"} data={jobRoles} selectedValue={jobRole} onSelectValue={handleSelectJobRole} />
+            <div className='input-section'>
+              <label>Name</label>
+              <input name="description" id=""
+                placeholder="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              >
+              </input>
+              <label htmlFor="file-upload">Resumes (PDF)</label>
+              <FileUpload files={selectedResumes} setFiles={setSelectedResumes} />
+              <button className='upload-btn' onClick={handleResumesUpload}>Upload resumes</button>
+            </div>
+          </div>
+
+          <div className="criteria-section card">
             <p className="section-title">Ranking Criteria</p>
-            {!criteriaView ? <div className='section-add' onClick={handleAdd}>
-              <img src={addLarge} alt="Add Icon" />
-              <p>Add Criteria</p>
-            </div> :
-              <DynamicInputCreation data={criteria} setData={setCriteria} />
-            }
+            <DynamicInputCreation data={criteria} setData={setCriteria} />
           </div>
         </div>
-        <button className="submit-btn w-full" onClick={handleRankResumes}>
+  
+      </div>
+      <button className="submit-btn w-full" onClick={handleRankResumes}>
           <span>Rank Resumes</span>
         </button>
-      </div>
-
       <div className='display-container'>
         {
           (resumesData && resumesData.length > 0) ?

@@ -14,6 +14,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  padding: 0.5rem;
 }
 
 .description {
@@ -148,12 +149,14 @@ label {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 10px;
   margin-bottom: 30px;
 }
 
 .input-section label {
-  font-weight: bold;
   font-size: 14px;
+  font-weight: bold;
+
 }
 
 .input-section input {
@@ -164,7 +167,6 @@ label {
 }
 
 .input-section input:focus {
-  background-color: var(--secondary-color);
   border: 1px solid var(--primary-color);
 }
 
@@ -207,6 +209,9 @@ label {
 .job-section {
   width: 100%;
   margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .section-title {
@@ -267,27 +272,6 @@ label {
   color: var(--primary-color);
   border-bottom: 1px dashed var(--primary-color);
   text-align: center;
-}
-
-.section-add {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: center;
-  margin-top: 10px;
-  cursor: pointer;
-  height: 100px;
-  background-color: var(--light-background);
-  border: 1px dashed var(--primary-color);
-}
-
-.section-add p {
-  color: var(--primary-color);
-  font-weight: bold;
-}
-
-.criteria-section {
-  margin: 16px 0;
 }
 
 .file-preview-container {

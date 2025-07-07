@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import './styles.css';
-import UploadIcon from '../../assets/icons/upload-icon.svg';
+import UploadIcon from '../../assets/icons/upload-icon-dark.svg';
 import FileIcon from '../../assets/icons/file-icon.svg';
 import CloseIcon from '../../assets/icons/close-icon.svg';
 

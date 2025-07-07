@@ -72,7 +72,7 @@ const CircularProgress = ({ value }) => {
 };
 
 const ResumeCard = ({ resume }) => {
-    const { filename, email, job_title: jobTitle, weighted_score: weightedScore, evaluation, message } = resume;
+    const { filename, email, job_title: jobTitle, weighted_score: weightedScore, evaluation_summary, section_scores, message } = resume;
 
     return (
         <div className="resume-card">
@@ -85,11 +85,10 @@ const ResumeCard = ({ resume }) => {
                 {weightedScore && <CircularProgress value={weightedScore} />}
             </div>
             {
-                evaluation && Object.keys(evaluation).length > 0 && (
+                section_scores && Object.keys(section_scores).length > 0 && (
                     <div className="evaluation-section">
                         {
-                            Object.entries(evaluation).map(([key, { score, comment }]) => {
-                                console.log(key, score, comment);
+                            Object.entries(section_scores).map(([key, { score, comment }]) => {
                                 if (key !== "summary_comment") {
                                     return (
                                         <div key={key} className="criteria">
@@ -105,9 +104,9 @@ const ResumeCard = ({ resume }) => {
                             })}
                     </div>
                 )}
-            {evaluation?.summary_comment && <div className="summary">
+            {evaluation_summary && <div className="summary">
                 <strong>Summary:</strong>
-                <p>{evaluation.summary_comment}</p>
+                <p>{evaluation_summary}</p>
             </div>}
 
             {message && <div className="summary">

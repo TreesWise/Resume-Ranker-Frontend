@@ -1,21 +1,32 @@
 .dynamic-add {
-    max-height: 200px;
-    overflow: auto;
     border: 3px solid var(--light-background);
     padding: 0.5rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 460px;
+    height: auto;
 }
 
 .dynamic-add .head {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 6px;
 }
 
 .title-block {
     padding: 0.5rem;
-    width: 100%;
+}
 
+.info{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 10px 0;
+    padding: 0.5rem;
+    border-radius: 6px;
+    background-color: rgb(248, 247, 247);
+    border: 1px solid var(--border-secondary);
 }
 
 .title-block p {
@@ -36,7 +47,7 @@
 }
 
 .head button img {
-    width: 12px;
+    width: 14px;
     height: 12px;
     vertical-align: middle;
 }

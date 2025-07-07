@@ -10,8 +10,12 @@
 .dropzone {
   border: 2px dashed var(--primary-color);
   border-radius: 10px;
-  padding: 2rem;
-  min-height: 80px;
+  padding: 1rem;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
   margin-bottom: 1rem;
   transition: background-color 0.3s, border-color 0.3s;
@@ -61,6 +65,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  height: 100%;
+  max-height: 200px;
+  overflow: auto;
 }
 
 .file {
