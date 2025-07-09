@@ -77,7 +77,7 @@ const Dashboard = () => {
       const res = await uploadFolder(selectedResumes, name);
       if (res.status === 200) {
         console.log("Files uploaded successfully");
-       setResumeUploaded(true);
+        setResumeUploaded(true);
         toast.success("Resumes uploaded successfully");
       } else {
         console.error("Failed to upload files");
@@ -89,7 +89,7 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  
+
   };
 
   const handleJobDescriptionUpload = async () => {
@@ -120,13 +120,13 @@ const Dashboard = () => {
   };
 
   const handleRankResumes = async () => {
-    
-    if(!resumeUploaded) {
+
+    if (!resumeUploaded) {
       toast.error("Please upload resumes before ranking");
       return;
     }
 
-    if(criteria.some(item => item.criteria.trim() === "")) {
+    if (criteria.some(item => item.criteria.trim() === "")) {
       toast.error("Please fill all criteria fields");
       return;
     }
@@ -173,12 +173,12 @@ const Dashboard = () => {
         </div>
       }
       <h1>Resume Ranking Tool</h1>
-      <div className='card'>
+      <div className='card border'>
         <div className='header'>
-          <h3>Add Job Description</h3>
           <button className='upload-btn' onClick={() => setJdModalOpen(true)}>
             <img src={UploadIcon} alt="Upload Icon" />
-            Upload</button>
+            Add Job Description
+          </button>
         </div>
       </div>
       <Modal
@@ -216,7 +216,7 @@ const Dashboard = () => {
                       onChange={handleJDChange}
                     />
                   </div>
-                  : <div onClick={handleClick}>
+                  : <div className='file-click' onClick={handleClick}>
                     {/* <img src={UploadIcon} alt="Upload" /> */}
                     <span>Upload JD</span>
                     <input
@@ -261,11 +261,11 @@ const Dashboard = () => {
             <DynamicInputCreation data={criteria} setData={setCriteria} />
           </div>
         </div>
-  
+
       </div>
       <button className="submit-btn w-full" onClick={handleRankResumes}>
-          <span>Rank Resumes</span>
-        </button>
+        <span>Rank Resumes</span>
+      </button>
       <div className='display-container'>
         {
           (resumesData && resumesData.length > 0) ?
