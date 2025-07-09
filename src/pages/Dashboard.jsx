@@ -120,6 +120,10 @@ const Dashboard = () => {
   };
 
   const handleRankResumes = async () => {
+    if (!jobRole) {
+      toast.error("Please select a job role");
+      return;
+    }
 
     if (!resumeUploaded) {
       toast.error("Please upload resumes before ranking");
