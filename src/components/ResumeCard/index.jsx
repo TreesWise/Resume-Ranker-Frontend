@@ -82,7 +82,7 @@ const ResumeCard = ({ resume }) => {
                     {jobTitle && <p>{jobTitle}</p>}
                     {email && <p>{email}</p>}
                 </div>
-                <CircularProgress value={weightedScore} />
+                {weightedScore && <CircularProgress value={weightedScore} />}
             </div>
             {
                 section_scores && Object.keys(section_scores).length > 0 && (
