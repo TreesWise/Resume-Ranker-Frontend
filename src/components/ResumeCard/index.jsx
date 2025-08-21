@@ -48,8 +48,7 @@ const SemiCircularProgress = ({ value }) => {
 const CircularProgress = ({ value }) => {
     const radius = 34;
     const circumference = 2 * Math.PI * radius;
-    const updatedValue = value.toFixed(1) * 10;
-    const offset = circumference - (updatedValue / 100) * circumference;
+    const offset = circumference - (value / 100) * circumference;
 
     return (
         <div className='progress'>
@@ -62,11 +61,11 @@ const CircularProgress = ({ value }) => {
                     r={radius}
                     strokeDasharray={circumference}
                     strokeDashoffset={offset}
-                    style={{ stroke: getStrokeColor(updatedValue) }}
+                    style={{ stroke: getStrokeColor(value) }}
                 />
 
             </svg>
-            <span className='number'>{updatedValue}%</span>
+            <span className='number'>{value}%</span>
         </div>
     );
 };
@@ -86,7 +85,9 @@ const ResumeCard = ({ resume }) => {
             </div>
             {
                 section_scores && Object.keys(section_scores).length > 0 && (
-                    <div className="evaluation-section">
+                    <div   className="evaluation-section" style={{
+                        gridTemplateColumns: `repeat(${Object.keys(section_scores).length}, 1fr)`,
+            }}>
                         {
                             Object.entries(section_scores).map(([key, { score, comment }]) => {
                                 if (key !== "summary_comment") {
