@@ -103,7 +103,7 @@ const Collection = () => {
                   <td>{index + 1}</td>
                   <td>{result.email}</td>
                   <td>{result.job_title}</td>
-                  <td>{result.weighted_score.toFixed(1) * 10}%</td>
+                  <td>{result.weighted_score}%</td>
                   <td>{result.uploaded_by}</td>
                 </tr>
               ))}
