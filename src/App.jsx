@@ -1,21 +1,48 @@
-import Navbar from "./components/Navbar";
-import Collection from "./pages/Collection";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import { Toaster } from 'react-hot-toast';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import './App.css';
+import Collection from "./pages/Collection";
+import Navbar from "./components/Navbar";
+import { Toaster } from "react-hot-toast";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Login from "./pages/Login";
 
-function App() {
+function AppLayout() {
+  const location = useLocation();
+
   return (
-    <Router basename={import.meta.env.BASE_URL}>
-      <Navbar />
+    <>
+      {location.pathname !== "/login" && <Navbar />}
       <Toaster position="bottom-center" />
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/search" element={<Collection />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <ProtectedRoute>
+              <Collection />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<Login />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <AuthProvider>
+      <Router basename={import.meta.env.BASE_URL}>
+        <AppLayout />
+      </Router>
+    </AuthProvider>
+  );
+}
