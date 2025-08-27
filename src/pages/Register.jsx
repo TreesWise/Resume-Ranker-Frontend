@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Logo from '../assets/icons/logo.png'
 import "../styles/login.css";
 import { register } from "../services/api";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 export default function Register() {
     const { user } = useAuth();
@@ -93,7 +93,7 @@ export default function Register() {
                     </form>
 
                     <p className="signup-text">
-                        Already have an account? <a href="/login">Login</a>
+                        Already have an account? <Link to="/login">Login</Link>
                     </p>
                 </div>
             </div>

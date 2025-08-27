@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Logo from '../assets/icons/logo.png'
 import "../styles/login.css"; // custom CSS
 import { useAuth } from "../context/AuthContext";
-import Bg from "../assets/icons/marine-bg.png";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 
@@ -91,7 +91,7 @@ export default function Login() {
                     </form>
 
                     <p className="signup-text">
-                        Don’t have an account? <a href="/register">Sign up</a>
+                        Don’t have an account? <Link to="/register">Sign up</Link>
                     </p>
                 </div>
             </div>
