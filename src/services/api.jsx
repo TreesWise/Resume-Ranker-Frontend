@@ -6,13 +6,49 @@ const api = axios.create({
     baseURL: apiUrl,
 });
 
+api.interceptors.request.use(
+    async (config) => {
+
+        const token = localStorage.getItem("token");
+
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
+
+export const signin = (username, password) => {
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("password", password);
+    return api.post("/login/", formData, {
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    })
+
+};
+
+export const register = (username, password) => {
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("password", password);
+    return api.post("/signup/", formData, {
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    })
+}
+
 //Upload folder
-export const uploadFolder = async (files, uploadedBy) => {
+export const uploadFolder = async (files) => {
     const formData = new FormData();
     for (const file of files) {
         formData.append('files', file);
     }
-    formData.append('uploaded_by', uploadedBy);
 
     try {
         const response = await api.post('/upload-folder/', formData, {
@@ -28,11 +64,10 @@ export const uploadFolder = async (files, uploadedBy) => {
 };
 
 //upload-jd
-export const uploadJD = async (file, title, uploadedBy) => {
+export const uploadJD = async (file, title) => {
     const formData = new FormData();
     formData.append('jd_file', file);
     formData.append('job_title', title);
-    formData.append('uploaded_by', uploadedBy);
 
     try {
         const response = await api.post('/upload-jd/', formData, {
@@ -48,11 +83,10 @@ export const uploadJD = async (file, title, uploadedBy) => {
 };
 
 //Rank Resumes
-export const rankResumes = async (criteria, jobTitle, name) => {
+export const rankResumes = async (criteria, jobTitle) => {
     try {
         const body = {
             criteria_with_weights: criteria,
-            uploaded_by: name,
             job_title: jobTitle,
         }
         const response = await api.post('/rank-resumes-dynamic/', body, {

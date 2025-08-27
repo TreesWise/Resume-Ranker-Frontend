@@ -2,7 +2,7 @@ import React from 'react';
 import CloseIcon from '../../assets/icons/close-icon.svg';
 import './styles.css';
 
-const Modal = ({ modalOpen, children, onModalClose }) => {
+const Modal = ({ modalOpen, children, onModalClose, title }) => {
   if (!modalOpen) return null;
   return (
  
@@ -13,7 +13,7 @@ const Modal = ({ modalOpen, children, onModalClose }) => {
         <div className="modal-content-wrapper">
           <div className="modal-container">
             <div className="modal-header">
-              <h2>Modal Title</h2>
+              <h2>{title}</h2>
               <div onClick={onModalClose}>
                 <img src={CloseIcon} className="close-icon" />
               </div>

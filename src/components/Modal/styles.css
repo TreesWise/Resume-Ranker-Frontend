@@ -46,14 +46,5 @@
     overflow-y: auto;
   }
   
-  @media (prefers-color-scheme: dark) {
-    .modal-container {
-      background: #1f2937;
-      color: #f9fafb;
-    }
-  
-    .modal-header {
-      border-color: #374151;
-    }
-  }
+ 
   

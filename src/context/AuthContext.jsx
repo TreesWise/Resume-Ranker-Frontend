@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
+import { signin } from "../services/api";
 
 const AuthContext = createContext();
 
@@ -6,34 +7,22 @@ export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  
+ const login = async (username, password) => {
+  try {
+     const response = await signin(username, password);
+     if(response.data){
+       localStorage.setItem("token", response.data.access_token);
+       localStorage.setItem("user", response.data.username);
+     }
+     setUser(response.data.username);
+     return response;
 
-  // Load user from localStorage on refresh
-  useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) setUser(JSON.parse(savedUser));
-  }, []);
-
-  const login = async (email, password) => {
-    try {
-      // 🔗 Call your backend API
-      const res = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!res.ok) throw new Error("Invalid credentials");
-      const data = await res.json();
-
-      setUser(data.user);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      localStorage.setItem("token", data.token);
-
-      return { success: true };
-    } catch (err) {
-      return { success: false, message: err.message };
-    }
-  };
+  } catch (error) {
+    console.log("error to login");
+    throw error;
+  }
+ }
 
   const logout = () => {
     setUser(null);
@@ -42,7 +31,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, setUser }}>
       {children}
     </AuthContext.Provider>
   );

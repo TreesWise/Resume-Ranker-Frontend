@@ -80,3 +80,51 @@ a {
     align-items: center;
     gap: 12px;
 }
+
+.user-info{
+    padding: 6px 10px;
+    border-radius: 4px;
+    background-color: #fdfdfd;
+    border: 1px solid #c2c0c0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.user-info span{
+    font-weight: 500;
+}
+
+.user-info:active{
+    border: 1px solid #a9bffd;
+}
+
+.settings{
+    padding: 2px;
+    position: relative;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #f2f2f2;
+}
+
+.settings .icon{
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.settings > div{
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #e4e1e1;
+    top: 30px;
+    left: -60px;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.settings > div button{
+    background-color: #f33636;
+}

@@ -18,7 +18,6 @@ const Dashboard = () => {
   const [selectedResumes, setSelectedResumes] = useState([]);
   const [jdModalOpen, setJdModalOpen] = useState(false);
   const [resumeUploaded, setResumeUploaded] = useState(false);
-  const [name, setName] = useState("");
   const [criteria, setCriteria] = useState([]);
   const [resumesData, setResumesData] = useState([]);
   const [jobRole, setJobRole] = useState("");
@@ -35,11 +34,6 @@ const Dashboard = () => {
   const handleJDChange = (e) => {
     setJobDescription(e.target.files[0]);
   };
-
-
-  const clearSelectedFiles = () => {
-    setSelectedResumes([]);
-  }
 
   const fetchJobRoles = async () => {
     setLoading(true);
@@ -74,7 +68,7 @@ const Dashboard = () => {
     setLoading(true);
     setLoadMessage("Uploading resumes...");
     try {
-      const res = await uploadFolder(selectedResumes, name);
+      const res = await uploadFolder(selectedResumes);
       if (res.status === 200) {
         console.log("Files uploaded successfully");
         setResumeUploaded(true);
@@ -101,7 +95,7 @@ const Dashboard = () => {
     setJdModalOpen(false);
     setLoading(true);
     try {
-      const res = await uploadJD(jobDescription, jobTitle, 'test');
+      const res = await uploadJD(jobDescription, jobTitle);
       if (res.status === 200) {
         console.log("Job description uploaded successfully");
         toast.success("Job description uploaded successfully");
@@ -130,6 +124,11 @@ const Dashboard = () => {
       return;
     }
 
+    if(criteria.length === 0){
+      toast.error("Add atleast one criteria");
+      return;
+    }
+
     if (criteria.some(item => item.criteria.trim() === "")) {
       toast.error("Please fill all criteria fields");
       return;
@@ -142,7 +141,7 @@ const Dashboard = () => {
     try {
       setLoadMessage("Ranking resumes...");
       setLoading(true);
-      const res = await rankResumes(updatedCriteria, jobRole, name);
+      const res = await rankResumes(updatedCriteria, jobRole);
       if (res.status === 200) {
         console.log("Resumes ranked successfully");
         setResumesData(res.data?.ranked_resumes);
@@ -187,6 +186,7 @@ const Dashboard = () => {
       </div>
       <Modal
         modalOpen={jdModalOpen}
+        title={"Add Job Description"}
         onModalClose={() => {
           setJdModalOpen(false);
           setError(null);
@@ -247,13 +247,6 @@ const Dashboard = () => {
           <div className='card'>
             <Select title={"Select Job Role"} data={jobRoles} selectedValue={jobRole} onSelectValue={handleSelectJobRole} />
             <div className='input-section'>
-              <label>Name</label>
-              <input name="description" id=""
-                placeholder="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              >
-              </input>
               <label htmlFor="file-upload">Resumes (PDF)</label>
               <FileUpload files={selectedResumes} setFiles={setSelectedResumes} />
               <button className='upload-btn' onClick={handleResumesUpload}>Upload resumes</button>

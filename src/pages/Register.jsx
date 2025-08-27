@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from '../assets/icons/logo.png'
-import "../styles/login.css"; // custom CSS
-import { useAuth } from "../context/AuthContext";
-import Bg from "../assets/icons/marine-bg.png";
-import { useNavigate } from "react-router";
+import "../styles/login.css";
+import { register } from "../services/api";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
-export default function Login() {
-    const { user, login } = useAuth();
+export default function Register() {
+    const { user } = useAuth();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -28,25 +28,28 @@ export default function Login() {
         }
         setLoading(true);
         try {
-            const res = await login(username, password);
-            console.log(res, "response")
+            const res = await register(username, password);
+
             if (res && res.status === 200) {
-                toast.success("login successfully");
-                navigate("/")
+                toast.success("Registered successfully");
+                navigate("/login")
             } else {
                 console.log("error to log in");
-                toast.error("login failed");
+                toast.error("error to register");
             }
+
             setError("");
         } catch (error) {
             setLoading(false);
-            console.log("error", error);
-            if (error) {
+            console.log(error);
+            if (error.response.data.detail) {
                 toast.error(error.response.data.detail)
+            } else if (error) {
+                console.log(error);
             } else {
-                toast.error("Login failed");
+                toast.error("error to register");
             }
-            setError("Error to login");
+
         } finally {
             setLoading(false);
         }
@@ -59,7 +62,6 @@ export default function Login() {
                     <div className='loading-spinner'></div>
                 </div>
             }
-
             <div className="login-left">
                 <div className="container"></div>
                 <div className="form-wrapper">
@@ -86,16 +88,15 @@ export default function Login() {
                         </div>
                         {error && <div className="error-box">{error}</div>}
                         <button type="submit" className="btn-login">
-                            Login
+                            Register
                         </button>
                     </form>
 
                     <p className="signup-text">
-                        Don’t have an account? <a href="/register">Sign up</a>
+                        Already have an account? <a href="/login">Login</a>
                     </p>
                 </div>
             </div>
-
         </div>
     );
 }

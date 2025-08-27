@@ -65,7 +65,7 @@ const CircularProgress = ({ value }) => {
                 />
 
             </svg>
-            <span className='number'>{value}%</span>
+            <span className='number'>{value.toFixed(0)}%</span>
         </div>
     );
 };

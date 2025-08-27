@@ -3,16 +3,30 @@ import Dashboard from "./pages/Dashboard";
 import Collection from "./pages/Collection";
 import Navbar from "./components/Navbar";
 import { Toaster } from "react-hot-toast";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
+import './App.css';
+import { useEffect } from "react";
 
 function AppLayout() {
   const location = useLocation();
+  const { setUser } = useAuth();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const user = localStorage.getItem("user");
+      setUser(user);
+    } else {
+      setUser(null);
+    }
+  }, []);
 
   return (
     <>
-      {location.pathname !== "/login" && <Navbar />}
+      {(location.pathname !== "/login" && location.pathname !== "/register") && <Navbar />}
       <Toaster position="bottom-center" />
       <Routes>
         <Route
@@ -32,6 +46,7 @@ function AppLayout() {
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );
